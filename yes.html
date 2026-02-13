@@ -6,88 +6,10 @@
 <title>Good Choice!</title>
 
 <style>
-/* General responsive layout */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#0d1b2a,#1b263b); /* night sky */
+    background: linear-gradient(135deg,#0d1b2a,#1b263b);
     color: #fff;
     overflow: hidden;
-    text-align: center;
-    position: relative;
-}
-
-h1 {
-    font-size: 6vw; /* responsive font size */
-    margin-top: 5vh;
-    position: relative;
-    z-index: 1;
-}
-
-p {
-    font-size: 4vw;
-    margin-top: 2vh;
-    position: relative;
-    z-index: 1;
-}
-
-ul {
-    list-style: disc inside;
-    text-align: left;
-    display: inline-block;
-    font-size: 4vw;
-    margin-top: 3vh;
-    color: #f0f0f0;
-    position: relative;
-    z-index: 1;
-}
-
-ul li {
-    margin-bottom: 1.5vh;
-}
-
-.dancing-girl {
-    width: 30vw; /* responsive width */
-    max-width: 150px;
-    margin-top: 3vh;
-    position: relative;
-    z-index: 1;
-}
-
-/* Canvas covers entire viewport */
-#fireworksCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-</style>
-</head>
-<body>
-
-<h1>Good Choice!</h1>
-<p>Now You will get:</p>
-
-<ul>
-   <li>Unlimited cuddles and holding hands 🤝</li>
-   <li>Someone to Explore cafes and different places with ☕🏔️</li>
-   <li>Listening and understanding each other</li>
-   <li>Someone who will play your favourite song on piano 🎹🎵</li>
-   <li>Someone who will make you laugh</li>
-</ul>
-
-<img class="dancing-girl" src="https://tenor.com/view/noice-gif-18473557.gif">
-
-<canvas id="fireworksCanvas"></canvas>
-
-<script>
-// Fireworks canvas setup
-const canvas = document.getElementById('fireworksCanvas');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas
+    text

@@ -14,13 +14,12 @@ body {
   overflow:hidden;
   position:relative;
 }
-
 h1 { font-size:6vw; margin-top:5vh; z-index:1; position:relative; }
 p { font-size:4vw; margin-top:2vh; z-index:1; position:relative; }
 ul { list-style:disc inside; display:inline-block; text-align:left; font-size:4vw; margin-top:3vh; color:#f0f0f0; z-index:1; position:relative; }
 ul li { margin-bottom:1.5vh; }
 .dancing-girl { width:30vw; max-width:150px; margin-top:3vh; z-index:1; position:relative; }
-canvas { position:fixed; top:0; left:0; z-index:0; }
+canvas { position:fixed; top:0; left:0; z-index:0; display:block; }
 </style>
 </head>
 <body>
@@ -38,4 +37,105 @@ canvas { position:fixed; top:0; left:0; z-index:0; }
 
 <img class="dancing-girl" src="https://tenor.com/view/noice-gif-18473557.gif">
 
-<canvas id="canvas"><
+<canvas id="canvas"></canvas>
+
+<script>
+window.onload = function() {
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+const fireworks = [];
+const particles = [];
+
+function random(min,max){ return Math.random()*(max-min)+min; }
+
+class Firework {
+  constructor(){
+    this.x = random(50, canvas.width-50);
+    this.y = canvas.height;
+    this.targetY = random(canvas.height/4, canvas.height/2);
+    this.speed = random(5,7);
+    this.color = `hsl(${random(0,360)},100%,60%)`;
+    this.exploded = false;
+  }
+  update(){
+    if(this.y > this.targetY) this.y -= this.speed;
+    else if(!this.exploded){ this.explode(); this.exploded = true; }
+  }
+  explode(){
+    const count = 20;
+    for(let i=0;i<count;i++){
+      particles.push(new Particle(this.x,this.y,this.color));
+    }
+  }
+  draw(){
+    if(!this.exploded){
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,4,0,Math.PI*2);
+      ctx.fillStyle=this.color;
+      ctx.fill();
+    }
+  }
+}
+
+class Particle {
+  constructor(x,y,color){
+    this.x = x; this.y = y; this.color=color;
+    this.radius = random(2,4);
+    this.speed = random(2,5);
+    this.angle = random(0,Math.PI*2);
+    this.gravity = 0.05;
+    this.alpha = 1;
+    this.decay = random(0.02,0.04);
+  }
+  update(){
+    this.x += Math.cos(this.angle)*this.speed;
+    this.y += Math.sin(this.angle)*this.speed + this.gravity*this.speed;
+    this.alpha -= this.decay;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function animate(){
+  // Dark transparent background to create trails
+  ctx.fillStyle = 'rgba(13,27,42,0.25)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  if(Math.random() < 0.05){
+    fireworks.push(new Firework());
+  }
+
+  for(let i = fireworks.length-1; i>=0; i--){
+    fireworks[i].update();
+    fireworks[i].draw();
+    if(fireworks[i].exploded) fireworks.splice(i,1);
+  }
+
+  for(let i = particles.length-1; i>=0; i--){
+    particles[i].update();
+    particles[i].draw();
+    if(particles[i].alpha <= 0) particles.splice(i,1);
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+}
+</script>
+
+</body>
+</html>

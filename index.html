@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +33,7 @@ h1 {
     height: 150px;
 }
 
+/* Button Styles */
 button {
     padding: 14px 40px;
     font-size: 16px;
@@ -42,23 +45,26 @@ button {
     transition: all 0.2s ease;
 }
 
+/* Yes Button - bigger and highlighted */
 #yesBtn {
     background-color: #5dade2;
     color: white;
     left: 20px;
     bottom: 20px;
+    padding: 18px 50px;     /* bigger size */
+    font-size: 18px;        /* bigger text */
 }
 
-#yesBtn:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
+/* No Button - smaller */
 #noBtn {
     background-color: #e57373;
     color: white;
     right: 20px;
     top: 20px;
+    padding: 10px 25px;     /* smaller size */
+    font-size: 14px;        /* smaller text */
 }
+
 </style>
 </head>
 
@@ -122,3 +128,4 @@ function moveButton() {
 </script>
 </body>
 </html>
+
